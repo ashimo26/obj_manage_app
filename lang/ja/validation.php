@@ -154,7 +154,13 @@ return [
     */
 
     'attributes' => [
-        'password' => 'パスワード'
+        'password' => 'パスワード',
+        'kachi' => '理想の暮らし',
+        'name' => '氏名',
+        'age' => '年齢',
+        'gender' => '性別',
+        'email' => 'メールアドレス',
+        'list_name' => '部屋名'
     ],
 
 ];

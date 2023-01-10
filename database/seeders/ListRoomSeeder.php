@@ -16,13 +16,14 @@ class ListRoomSeeder extends Seeder
     public function run()
     {
         DB::table('list_rooms')->insert([
-            ['registrant_id'=>1, 'list_name'=>'リビング'],
-            ['registrant_id'=>1, 'list_name'=>'洗面所'],
-            ['registrant_id'=>2, 'list_name'=>'リビング'],
-            ['registrant_id'=>2, 'list_name'=>'ダイニング'],
-            ['registrant_id'=>2, 'list_name'=>'玄関'],
-            ['registrant_id'=>3, 'list_name'=>'リビング'],
-            ['registrant_id'=>3, 'list_name'=>'キッチン']
+            ['user_id'=>1, 'list_name'=>'未分類'],
+            ['user_id'=>1, 'list_name'=>'洗面所'],
+            ['user_id'=>1, 'list_name'=>'トイレ'],
+            ['user_id'=>2, 'list_name'=>'未分類'],
+            ['user_id'=>2, 'list_name'=>'ダイニング'],
+            ['user_id'=>2, 'list_name'=>'玄関'],
+            ['user_id'=>3, 'list_name'=>'未分類'],
+            ['user_id'=>3, 'list_name'=>'キッチン']
         ]);
     }
 }

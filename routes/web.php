@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TopController;
 use App\Http\Controllers\User\PostController;
 use App\Http\Controllers\User\MypageFormController;
+use App\Http\Controllers\Discard\DiscardController;
 
 
 /*
@@ -27,6 +28,18 @@ Route::prefix('mypage') //頭にmypageをつける
     ->name('mypage.')
     ->controller(MypageFormController::class)
     ->group(function(){
+        Route::get('/create', 'create')->name('create');
+        Route::post('/create', 'store')->name('store');
+        Route::get('/{id}/edit', 'edit')->name('edit');
+        Route::post('/{id}/update', 'update')->name('update');
+        Route::post('/{id}/destroy', 'destroy')->name('destroy');
+});
+
+Route::prefix('discard_list') //頭にmypageをつける
+    ->name('discard_list.')
+    ->controller(DiscardController::class)
+    ->group(function(){
+        Route::get('/index', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/create', 'store')->name('store');
 });

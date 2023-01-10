@@ -28,7 +28,6 @@
     @if($age > -1)
         <?php $date= $year."/".$month."/".$day ?>
         <input id="age" name="age" type="hidden" value="{{ $date }}" required>
-        <x-input-error :messages="$errors->get('age')" class="mt-2" />
         &nbsp;/&nbsp;{{ $age }} 才
     @endif
 

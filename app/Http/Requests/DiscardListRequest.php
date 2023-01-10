@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MypageRequest extends FormRequest
+class DiscardListRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,15 +24,15 @@ class MypageRequest extends FormRequest
     public function rules()
     {
         return [
-            'kachi' => 'required|max:255'
+            'list_name' => 'required|max:30'
         ];
     }
 
     public function message()
     {
         return[
-            'kachi.required' => '理想の暮らしを記入してください',
-            'kachi.max' => '255文字以内で入力してください',
+            'list_name.required' => '記入してください',
+            'list_name.max' => '30文字以内で入力してください',
         ];
     }
 }

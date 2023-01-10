@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Discard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\ListRoom;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Kachi;
-use App\Http\Requests\MypageRequest;
 use App\Models\User;
+use App\Http\Requests\DiscardListRequest;
 
-class MypageFormController extends Controller
+class DiscardController extends Controller
 {
+
     public function __construct()
     {
-        $this->kachi = new Kachi();
+        $this->listroom = new ListRoom();
     }
-    
     /**
      * Display a listing of the resource.
      *
@@ -23,8 +23,21 @@ class MypageFormController extends Controller
      */
     public function index()
     {
-        //
+        // 認証している場合は、マイページindexへ
+        if(Auth::check()){
+            # ログインユーザのインスタンスの作成
+            $user = Auth::user();
+            # ログインユーザのidを取得
+            $id = Auth::id();
+            $listrooms = User::find($id)->listrooms;
+            if($user->id == $id){
+                return view('user.discard.index', compact('listrooms'));
+            }
+        }
+        // 認証していない場合、topへ
+        return redirect()->route('top');
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -35,7 +48,7 @@ class MypageFormController extends Controller
     {
         // 認証している場合は、マイページcreateへ
         if(Auth::check()){
-            return view('user.mypage.create');
+            return view('user.discard.create');
         }
         // 認証していない場合、topへ
         return redirect()->route('top');
@@ -47,10 +60,10 @@ class MypageFormController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MypageRequest $request)
+    public function store(DiscardListRequest $request)
     {
-        $this->kachi->insertKachi($request);
-        return redirect()->route('user.index');
+        $this->listroom->insertListRoom($request);
+        return redirect()->route('discard_list.index');
     }
 
     /**
@@ -72,19 +85,7 @@ class MypageFormController extends Controller
      */
     public function edit($id)
     {
-        // 認証している場合
-        if(Auth::check()){
-            $kachi = $this->kachi->find($id);
-            $kachi_user_id = $kachi->user_id;
-            $user_id = Auth::user()->id;
-            // 認証している人が保有するkachi_idならばshow.bladeを表示
-            if($kachi_user_id == $user_id){
-                return view('user.mypage.edit', compact('kachi'));
-            }
-            return redirect()->route('user.index');
-            }
-        // 認証していない場合、topへ
-        return redirect()->route('top');
+        //
     }
 
     /**
@@ -94,15 +95,9 @@ class MypageFormController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MypageRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        # データベースの更新
-        $update_kachi = $this->kachi->find($id);
-        $update_kachi->kachi = $request->kachi;
-        $update_kachi->save();
-
-        # indexへリダイレクト
-        return redirect()->route('user.index');
+        //
     }
 
     /**
@@ -113,10 +108,6 @@ class MypageFormController extends Controller
      */
     public function destroy($id)
     {
-        $destroy_kachi = $this->kachi->find($id);
-        $destroy_kachi->delete();
-
-         # indexへリダイレクト
-         return redirect()->route('user.index');
+        //
     }
 }

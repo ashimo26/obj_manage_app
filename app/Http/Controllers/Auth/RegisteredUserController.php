@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use App\Models\ListRoom;
 
 class RegisteredUserController extends Controller
 {
@@ -48,10 +49,15 @@ class RegisteredUserController extends Controller
             'gender' => $request->gender,
             'password' => Hash::make($request->password),
         ]);
+        
 
         event(new Registered($user));
 
         Auth::login($user);
+
+        $listroom = New ListRoom;
+        $listroom->firstInsertList(Auth::id());
+
         return redirect()->route('user.index');
     }
 }

@@ -27,6 +27,9 @@
                             <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200">
                                 自分の価値観
                             </th>
+                            <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200">
+                                編集・削除
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,6 +46,17 @@
                                   {{ $kachi->kachi }}
                                 </p>
                             </td>
+                            <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                                <p class="text-gray-900 whitespace-no-wrap">
+                                  <a class="text-blue-400" href="{{ route('mypage.edit', ['id' => $kachi->id]) }}">編集する</a>
+                                </p>
+                                <form id="delete_{{ $kachi->id }}" method="post" action="{{ route('mypage.destroy', ['id'=> $kachi->id]) }}">
+                                @csrf
+                                    <p class="text-gray-900 whitespace-no-wrap">
+                                        <button class="text-red-400" type="submit" onclick="return confirm('本当に削除してもいいですか？')">削除する</button>
+                                    </p>
+                                </form>
+                            </td>
                         </tr>
                         <?php $i++; ?>
                     @endforeach
@@ -50,6 +64,11 @@
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                                 <p class="text-gray-900 whitespace-no-wrap">
                                     * 最大10個まで作成可能
+                                </p>
+                            </td>
+                            <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                                <p class="text-gray-900 whitespace-no-wrap">
+                                  
                                 </p>
                             </td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
@@ -77,4 +96,13 @@
     @endif
 </div>
 
+<!-- 確認メッセージ -->
+<!-- <script>
+    function deletePost(e){
+        'use strict'
+        if(confirm('本当に削除していいですか？')){
+            document.getElementById('delete_' + e.dataset.id).submit()
+        }
+    }
+</script> -->
 @endsection
