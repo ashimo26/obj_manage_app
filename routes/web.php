@@ -42,6 +42,7 @@ Route::prefix('discard_list') //頭にmypageをつける
         Route::get('/index', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/create', 'store')->name('store');
+        // Route::get('/{id}/show', 'store')->name('store');
 });
 
 Route::get('/dashboard', function () {

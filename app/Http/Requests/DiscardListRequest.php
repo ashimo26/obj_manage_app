@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Services\validationService;
 
 class DiscardListRequest extends FormRequest
 {
@@ -34,5 +35,21 @@ class DiscardListRequest extends FormRequest
             'list_name.required' => '記入してください',
             'list_name.max' => '30文字以内で入力してください',
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            // 他のバリデーションルールでエラーが出たら何もせず返す
+            if (count($this->validator->errors()) != 0) {
+                return;
+            }
+            // 処理クラスへ入力値を渡す
+            $errors = validationService::nameCheck($this->all());
+            foreach ((array)$errors as $error) {
+                // エラーメッセージを生成
+                $validator->errors()->add($error['key'], $error['message']);
+            }
+        });
     }
 }

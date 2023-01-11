@@ -29,7 +29,7 @@ class ListRoom extends Model
         return $result;
     }
     # 新規データの登録
-    public function InsertListRoom($request)
+    public function insertListRoom($request)
     {
         $result = $this->fill([
             'user_id' => Auth::id(),
@@ -37,6 +37,17 @@ class ListRoom extends Model
         ]);
         $result->save();
         return $result;
+    }
+    # リストnameの重複を確認
+    public function checkListName($request)
+    {
+        $result = self::where("user_id","=",Auth::id())->where("list_name", "=", $request->list_name)->first();
+        if($result){
+            $flag = False;
+        } else{
+            $flag = True;
+        }
+        return $flag;
     }
 
     public function registrant()
