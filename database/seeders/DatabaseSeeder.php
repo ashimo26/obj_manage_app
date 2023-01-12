@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         # db内のデータを削除
-        \App\Models\ListRoom::truncate();
-        
+        // \App\Models\ListRoom::truncate();
+
         $this->call([
             KachiSeeder::class,
             ListRoomSeeder::class,

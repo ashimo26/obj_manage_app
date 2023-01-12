@@ -8,6 +8,7 @@ use App\Models\ListRoom;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Http\Requests\DiscardListRequest;
+use App\Models\Huyoubutu;
 
 class DiscardController extends Controller
 {
@@ -74,7 +75,23 @@ class DiscardController extends Controller
      */
     public function show($id)
     {
-        //
+         // 認証している場合
+         if(Auth::check()){
+            $list = $this->listroom->find($id);
+            $list_user_id = $list->user_id;
+            $user_id = Auth::user()->id;
+            // 認証している人が保有するlist_user_idならばshow.bladeを表示
+            if($list_user_id == $user_id){
+                # huyoubutusからデータを取得
+                $huyoubutus = Huyoubutu::where('listroom_id', '=', $id)->get();
+                # list名の取得
+                $list_name = $list->list_name;
+                return view('user.discard.show', compact('huyoubutus', 'list_name'));
+            }
+            return redirect()->route('discard_list.index');
+            }
+        // 認証していない場合、topへ
+        return redirect()->route('top');
     }
 
     /**
@@ -108,6 +125,10 @@ class DiscardController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $destroy_kachi = $this->listroom->find($id);
+        $destroy_kachi->delete();
+
+         # indexへリダイレクト
+         return redirect()->route('discard_list.index');
     }
 }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('item', 30);
             $table->tinyInteger('fovorite');
-            $table->foreignid('listroom_id');
+            $table->foreignid('listroom_id')->references('id')->on('list_rooms')->onDelete('cascade');
             $table->foreignid('kachi_id');
             $table->text('memo');
             $table->boolean('delete');
