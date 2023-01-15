@@ -19,6 +19,10 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/css/background.css', 'resources/js/app.js'])
+
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 </head>
 <body>
     <div>

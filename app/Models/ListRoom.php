@@ -50,6 +50,13 @@ class ListRoom extends Model
         return $flag;
     }
 
+    # リスト内の不要物件数の取得
+    public function getCounthuyoubutus($id)
+    {
+        $listrooms = Self::withCount('huyoubutus')->where('user_id', '=', $id)->get();
+        return $listrooms;
+    }
+
     public function registrant()
     {
         return $this->belongsTo(User::class);
@@ -57,7 +64,7 @@ class ListRoom extends Model
 
     public function huyoubutus()
     {
-        return $this-hasMany(Huyoubutu::class);
+        return $this->hasMany(Huyoubutu::class);
     }
 
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\TopController;
 use App\Http\Controllers\User\PostController;
 use App\Http\Controllers\User\MypageFormController;
 use App\Http\Controllers\Discard\DiscardController;
+use App\Http\Controllers\Discard\DiscardObjController;
 
 
 /*
@@ -35,7 +36,7 @@ Route::prefix('mypage') //頭にmypageをつける
         Route::post('/{id}/destroy', 'destroy')->name('destroy');
 });
 
-Route::prefix('discard_list') //頭にmypageをつける
+Route::prefix('discard_list')
     ->name('discard_list.')
     ->controller(DiscardController::class)
     ->group(function(){
@@ -44,11 +45,21 @@ Route::prefix('discard_list') //頭にmypageをつける
         Route::post('/create', 'store')->name('store');
         Route::get('/{id}/show', 'show')->name('show');
         Route::post('/{id}/destroy', 'destroy')->name('destroy');
+        Route::get('/discard', 'discard')->name('discard');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::prefix('discard')
+    ->name('discard.')
+    ->controller(DiscardObjController::class)
+    ->group(function(){
+        Route::get('/create', 'create')->name('create');
+        Route::post('/create', 'store')->name('store');
+        Route::get('/{id}/edit', 'edit')->name('edit');
+        Route::post('/{id}/update', 'update')->name('update');
+        Route::post('/{id}/destroy', 'destroy')->name('destroy');
+        Route::post('/discard', 'discard')->name('discard');
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

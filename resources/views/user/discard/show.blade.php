@@ -5,7 +5,7 @@
 @include('common.header')
 
 {{-- sidebarの中に@section('sidebar')があるため、親のどこに代入するか決まっている --}}
-@include('user.parts.sidebar')
+@include('user.parts.sidebardiscard')
 @section('content')
 
 <div class="container max-w-3xl px-4 mx-auto sm:px-8">
@@ -21,6 +21,16 @@
     <div class="">
         <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
             <div class="inline-block min-w-full overflow-hidden rounded-lg shadow">
+                <div class="flex justify-center py-4">
+                    <button class="flex items-center px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-green-500 rounded-lg hover:bg-green-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+
+                        <a href="{{ route('discard.create') }}">捨てる物を作成</a>
+                    </button>
+                </div>
+                <form method="POST" action="#" >
                 <table class="min-w-full leading-normal">
                     <thead>
                         <tr>
@@ -36,58 +46,69 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php $i =1; ?>
                     @foreach($huyoubutus as $item)
+                    @if($item->delete === 0)
                         <tr>
-                            <td class="px-5 py-5 text-sm text-right bg-stone-200 border-b border-gray-200">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                  {{ $item->item }}
-                                </p>
+                            <td class="px-5 py-5 text-sm bg-stone-200 border-b border-gray-200">
+                                <input id="{{ $item->id }}" type="checkbox" value="" name="discard" class="chk w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="{{ $item->id }}" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ $item->item }}</label>
                             </td>
                             <td class="px-5 py-5 text-sm bg-stone-200 border-b border-gray-200">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                  <a class="text-blue-400" href="{{ route('discard_list.show', ['id' => $item->id]) }}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                                    </svg>
-                                  </a>
-                                </p>
                             </td>
                             
                             <td class="px-5 py-5 text-sm text-right bg-stone-200 border-b border-gray-200">
                                 <form id="" method="post" action="{{ route('discard_list.destroy', ['id'=> $item->id]) }}">
                                 @csrf
                                     <p class="text-gray-900 whitespace-no-wrap">
-                                        <button class="text-red-400" type="submit" onclick="return confirm('リストの中身まで削除されます。本当に削除してもいいですか？')">削除する</button>
+                                        <button class="text-blue-400" type="submit" onclick="return confirm('リストの中身まで削除されます。本当に削除してもいいですか？')">編集する</button>
                                     </p>
                                 </form>
                             </td>
                         </tr>
-                        <?php $i++; ?>
+                    @endif
                     @endforeach
                     </tbody>
                 </table>
                 <div class="flex justify-center py-4">
-                    <button class="flex items-center px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-green-500 rounded-lg hover:bg-green-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+                    <button type="submit" id="btn1" class="flex items-center px-4 py-2 font-medium tracking-wide text-white capitalize duration-300 transform bg-zinc-400 rounded-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
 
-                        <a href="{{ route('discard_list.create') }}">新規リスト作成</a>
+                        <p>捨てます</p>
                     </button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
 <!-- 確認メッセージ -->
-<!-- <script>
-    function deletePost(e){
-        'use strict'
-        if(confirm('本当に削除していいですか？')){
-            document.getElementById('delete_' + e.dataset.id).submit()
+<script>
+    $(function(){
+        // 初期状態のボタンは無効
+        $("#btn1").prop("disabled", true);
+        // チェックボックスの状態が変わったら（クリックされたら）
+        $("input[type='checkbox']").on('change', function () {
+        // チェックされているチェックボックスの数
+        if ($(".chk:checked").length > 0) {
+          // ボタン有効
+          $("#btn1").prop("disabled", false);
+          $("#btn1").css({ "background-color": "#fb8a00",});
+          if ($('#btn1').hover(
+            function(){
+                $('#btn1').css('background-color', "#fba300")
+            },
+            function(){
+                $('#btn1').css('background-color', "#fb8a00")
+            }));
+        } else {
+          // ボタン無効
+          $("#btn1").prop("disabled", true);
+          $("#btn1").css({ "background-color": "#a1a1aa" });
         }
-    }
-</script> -->
+    });
+});
+</script>
 @endsection

@@ -5,7 +5,7 @@
 @include('common.header')
 
 {{-- sidebarの中に@section('sidebar')があるため、親のどこに代入するか決まっている --}}
-@include('user.parts.sidebar')
+@include('user.parts.sidebardiscard')
 @section('content')
 
 <div class="container max-w-3xl px-4 mx-auto sm:px-8">
@@ -45,13 +45,20 @@
                                 </p>
                             </td>
                             <td class="px-5 py-5 text-sm bg-stone-200 border-b border-gray-200">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                  <a class="text-blue-400" href="{{ route('discard_list.show', ['id' => $listroom->id]) }}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                                    </svg>
-                                  </a>
-                                </p>
+                            <div class="flex">
+                                <div>
+                                    <p class="text-gray-900 whitespace-no-wrap">
+                                        <a class="text-blue-400" href="{{ route('discard_list.show', ['id' => $listroom->id]) }}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                            </svg>
+                                        </a>
+                                    </p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-900 whitespace-no-wrap my-1 ml-1">{{ $listroom->huyoubutus_count }}</p>
+                                </div>
+                            </div>
                             </td>
                             
                             <td class="px-5 py-5 text-sm text-right bg-stone-200 border-b border-gray-200">
@@ -81,29 +88,39 @@
                 <table class="min-w-full leading-normal">
                     <thead>
                         <tr>
-                            <th scope="col" class="px-5 text-sm font-normal text-right text-gray-800 uppercase bg-slate-200">
-                            </th>
-                            <th scope="col" class="px-5 text-sm font-normal text-left text-gray-800 uppercase bg-slate-200">
-                            </th>
-                            <th scope="col" class="px-5 text-sm font-normal text-left text-gray-800 uppercase bg-slate-200">
-                            </th>
+                                <th scope="col" class="px-5 text-sm font-normal text-gray-800 uppercase bg-stone-200 ">
+                                
+                                </th>
+                                <th scope="col" class="px-5 text-sm font-normal text-left text-gray-800 uppercase bg-stone-200">
+                                    
+                                </th>
+                                <th scope="col" class="px-5 text-sm font-normal text-right text-gray-800 uppercase bg-stone-200">
+                                    
+                                </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="px-5 py-5 text-sm text-right bg-slate-200 border-b border-gray-200">
+                            <td class="py-5 text-sm text-right bg-slate-200 border-b border-gray-200">
                                 <p class="text-gray-900 whitespace-no-wrap">
                                   捨てた物リスト
                                 </p>
                             </td>
                             <td class="px-5 py-5 text-sm bg-slate-200 border-b border-gray-200">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                    <a class="text-blue-400" href="{{ route('mypage.edit', ['id' => $listroom->id]) }}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                                        </svg>
-                                    </a>
-                                </p>
+                            <div class="flex">
+                                <div>
+                                    <p class="text-gray-900 whitespace-no-wrap">
+                                        <a class="text-blue-400" href="{{ route('discard_list.discard') }}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                            </svg>
+                                        </a>
+                                    </p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-900 whitespace-no-wrap my-1 ml-1">{{ $huyoubutu_count }}</p>
+                                </div>
+                            </div>
                             </td>
                             <td class="px-5 py-5 text-sm bg-slate-200 border-b border-gray-200">
                                 <p class="text-gray-900 text-right whitespace-no-wrap">

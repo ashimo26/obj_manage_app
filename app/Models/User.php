@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Kachi::class);
     }
+
+    public function huyoubutus()
+    {
+        return $this->hasManyThrough(Huyoubutu::class,ListRoom::class);
+    }
 }

@@ -18,4 +18,10 @@ class Huyoubutu extends Model
     {
         return $this->belongsTo(Kachi::class);
     }
+
+    public function User()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
