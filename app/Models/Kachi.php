@@ -30,11 +30,12 @@ class Kachi extends Model
         return $this-hasMany(Huyoubutu::class);
     }
 
-    // public function allDataGet()
-    // {
-    //     $result = self::all();
-    //     return $result;
-    // }
+    public function allDataGet()
+    {
+        $user_id = Auth::id();
+        $result = self::where('user_id', '=', $user_id)->get();
+        return $result;
+    }
 
     /**
     *下記のように書くことで、ソートされたデータが取得できる

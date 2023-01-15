@@ -52,7 +52,7 @@ Route::prefix('discard')
     ->name('discard.')
     ->controller(DiscardObjController::class)
     ->group(function(){
-        Route::get('/create', 'create')->name('create');
+        Route::get('/{listname}/create', 'create')->name('create');
         Route::post('/create', 'store')->name('store');
         Route::get('/{id}/edit', 'edit')->name('edit');
         Route::post('/{id}/update', 'update')->name('update');

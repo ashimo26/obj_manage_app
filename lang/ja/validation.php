@@ -160,7 +160,9 @@ return [
         'age' => '年齢',
         'gender' => '性別',
         'email' => 'メールアドレス',
-        'list_name' => '部屋名'
+        'list_name' => '部屋名',
+        'kachi_option' => '価値観',
+        'item' => 'アイテム名'
     ],
 
 ];

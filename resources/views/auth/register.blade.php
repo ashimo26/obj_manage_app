@@ -20,12 +20,11 @@
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
 
-            <!-- 課題: old関数でバリデーションかかっても消えないようにする -->
             <!-- gender -->
             <div class="mt-12">
                 <x-input-label-gender for="gender" :value="__('性別')" />
-                <x-text-input-gender id="gender" class="" type="radio" name="gender" :value="0" required autofocus />男性
-                <x-text-input-gender id="gender" class="" type="radio" name="gender" :value="1" required autofocus />女性
+                <x-text-input-gender-men id="gender" class="" type="radio" name="gender" :value="0" required autofocus />男性
+                <x-text-input-gender-women id="gender" class="" type="radio" name="gender" :value="1" required autofocus />女性
                 <x-input-error :messages="$errors->get('gender')" class="mt-2" />
             </div>
 

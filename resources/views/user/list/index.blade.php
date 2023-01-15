@@ -13,6 +13,9 @@
     <p class="py-8 text-3xl font-bold text-center text-white dark:text-white">
         MY IDEAL
     </p>
+    <p class="text-sm font-bold text-center text-blue dark:text-white">
+        * {{ Auth::user()->name }} さんの価値観 *
+    </p>
 
   </div>
     <div class="">

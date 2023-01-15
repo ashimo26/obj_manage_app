@@ -56,7 +56,7 @@
                                     </p>
                                 </div>
                                 <div>
-                                    <p class="text-gray-900 whitespace-no-wrap my-1 ml-1">{{ $listroom->huyoubutus_count }}</p>
+                                    <p class="text-gray-900 whitespace-no-wrap my-1 ml-1">{{ $listroom->huyoubutus->where('delete_status', '=', 0)->count() }}</p>
                                 </div>
                             </div>
                             </td>

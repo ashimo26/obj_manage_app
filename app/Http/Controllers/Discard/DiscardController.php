@@ -33,7 +33,7 @@ class DiscardController extends Controller
             # 子テーブルデータの取得
             $listrooms = $this->listroom->getCounthuyoubutus($id);
             # deleteした件数の取得
-            $huyoubutu_count = User::find($id)->huyoubutus->where('delete', '=', 1)->count();
+            $huyoubutu_count = User::find($id)->huyoubutus->where('delete_status', '=', 1)->count();
             if($user->id == $id){
                 return view('user.discard.index', compact('listrooms','huyoubutu_count'));
             }
@@ -86,7 +86,7 @@ class DiscardController extends Controller
             // 認証している人が保有するlist_user_idならばshow.bladeを表示
             if($list_user_id == $user_id){
                 # huyoubutusからデータを取得
-                $huyoubutus = Huyoubutu::where('list_room_id', '=', $id)->get();
+                $huyoubutus = Huyoubutu::with('kachi')->where('list_room_id', '=', $id)->get();
                 # list名の取得
                 $list_name = $list->list_name;
                 return view('user.discard.show', compact('huyoubutus', 'list_name'));
@@ -141,7 +141,7 @@ class DiscardController extends Controller
             # ログインユーザのidを取得
             $id = Auth::id();
             # deleteした全てのデータの取得
-            $huyoubutus = User::find($id)->huyoubutus->where('delete', '=', 1)->paginate(5);
+            $huyoubutus = User::find($id)->huyoubutus->where('delete_status', '=', 1)->paginate(5);
             return view('user.discard.discard', compact('huyoubutus'));
         }
         // 認証していない場合、topへ

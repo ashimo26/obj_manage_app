@@ -35,7 +35,7 @@
           </div>
           @endif
         <h3 class="pt-4 text-2xl text-center">捨てるか悩んでいる物を書いていこう！</h3>
-        <form action="{{ route('discard.store') }}" method="POST" class="px-8 pt-8 pb-8 mb-4 bg-white rounded">
+        <form action="{{ route('discard.update', ['id' => $huyoubutu->id]) }}" method="POST" class="px-8 pt-8 pb-8 mb-4 bg-white rounded">
           @csrf
           <div class="mb-4">
             <div class="mb-4 md:mr-2 md:mb-0">
@@ -48,6 +48,7 @@
                 name="item"
                 type="text"
                 placeholder=""
+                value="{{ $huyoubutu->item }}"
               />
             </div>
           </div>
@@ -55,7 +56,7 @@
             <label class="block mb-2 text-sm font-bold text-gray-700" for="favorite">
               お気に入り度
             </label>
-            <input name="favorite" type="range" min="1" max="5" value="1" class="range w-full" step="1" />
+            <input name="favorite" type="range" min="1" max="5" value="{{ $huyoubutu->favorite }}" class="range w-full" step="1" />
             <div class="w-full flex justify-between text-xs px-2">
                 <span>1</span>
                 <span>2</span>
@@ -72,7 +73,7 @@
               <select name="kachi_option" class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline">
                 <option value="">選択してください</option>
                 @foreach($kachis as $kachi)
-                <option value="{{ $kachi->id }}">{{ $kachi->kachi}}</option>
+                <option value="{{ $kachi->id }}" @if($huyoubutu->kachi_id == $kachi->id) selected @endif>{{ $kachi->kachi}}</option>
                 @endforeach
               </select>
             </div>
@@ -89,16 +90,23 @@
               </textarea>
             </div>
           </div>
-          <input type="hidden" id="listroom_id" name="listroom_id" value="{{ $listroom_id }}">
           <div class="mb-6 text-center">
             <button
               class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
               type="submit"
             >
-              登録する
+              更新する
             </button>
           </div>
         </form>
+        <div class="mb-6 text-center">
+          <form id="delete_{{ $huyoubutu->id }}" method="post" action="{{ route('discard.destroy', ['id'=> $huyoubutu->id]) }}">
+          @csrf
+              <p class="text-gray-900 whitespace-no-wrap">
+                  <button class="text-red-400" type="submit" onclick="return confirm('本当に削除してもいいですか？')">削除する</button>
+              </p>
+          </form>
+        </div>
       </div>
     </div>
   </div>

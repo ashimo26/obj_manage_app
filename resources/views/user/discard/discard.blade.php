@@ -35,7 +35,7 @@
                       </tr>
                   </thead>
                   <tbody>
-                  <?php $i =1 + (request()->page -1 ) * 5; ?>
+                  <?php $i =1 + (request()->page) * 5; ?>
                   @foreach($huyoubutus as $huyoubutu)
                       <tr>
                           <td class="px-5 py-5 text-sm text-right bg-stone-200 border-b border-gray-200">

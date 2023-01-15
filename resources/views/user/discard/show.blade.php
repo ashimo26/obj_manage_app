@@ -27,42 +27,47 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
 
-                        <a href="{{ route('discard.create') }}">捨てる物を作成</a>
+                        <a href="{{ route('discard.create', ['listname'=>$list_name]) }}">捨てる物を作成</a>
                     </button>
                 </div>
-                <form method="POST" action="#" >
+                <form method="POST" action="{{ route('discard.discard') }}" >
+                @csrf
                 <table class="min-w-full leading-normal">
                     <thead>
                         <tr>
-                            <th scope="col" class="px-5 text-sm font-normal text-right text-gray-800 uppercase bg-stone-200 ">
-                                
+                            <th scope="col" class="px-5 py-4 text-sm font-normal text-left text-gray-800 uppercase bg-stone-200 ">
+                                アイテム名
                             </th>
-                            <th scope="col" class="px-5 text-sm font-normal text-left text-gray-800 uppercase bg-stone-200">
-                                
+                            <th scope="col" class="px-5 py-4 text-sm font-normal text-left text-gray-800 uppercase bg-stone-200">
+                                お気に入り度
                             </th>
-                            <th scope="col" class="px-5 text-sm font-normal text-right text-gray-800 uppercase bg-stone-200">
-                                
+                            <th scope="col" class="px-5 py-4 text-sm font-normal text-left text-gray-800 uppercase bg-stone-200">
+                                価値観
+                            </th>
+                            <th scope="col" class="px-5 py-4 text-sm font-normal text-right text-gray-800 uppercase bg-stone-200">
+                                編集
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                     @foreach($huyoubutus as $item)
-                    @if($item->delete === 0)
+                    @if($item->delete_status === 0)
                         <tr>
-                            <td class="px-5 py-5 text-sm bg-stone-200 border-b border-gray-200">
-                                <input id="{{ $item->id }}" type="checkbox" value="" name="discard" class="chk w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <td class="px-5 py-5 text-sm text-left bg-stone-200 border-b border-gray-200">
+                                <input id="{{ $item->id }}" type="checkbox" name="discard[]" value="{{ $item->id }}" 
+                                class="chk w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                 <label for="{{ $item->id }}" class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ $item->item }}</label>
                             </td>
                             <td class="px-5 py-5 text-sm bg-stone-200 border-b border-gray-200">
+                                {{ $item->favorite }}
                             </td>
-                            
+                            <td class="px-5 py-5 text-sm bg-stone-200 border-b border-gray-200">
+                                {{ $item->kachi->kachi }}
+                            </td>
                             <td class="px-5 py-5 text-sm text-right bg-stone-200 border-b border-gray-200">
-                                <form id="" method="post" action="{{ route('discard_list.destroy', ['id'=> $item->id]) }}">
-                                @csrf
                                     <p class="text-gray-900 whitespace-no-wrap">
-                                        <button class="text-blue-400" type="submit" onclick="return confirm('リストの中身まで削除されます。本当に削除してもいいですか？')">編集する</button>
+                                        <a class="text-blue-400" href="{{ route('discard.edit', ['id' => $item->id]) }}">編集する</a>
                                     </p>
-                                </form>
                             </td>
                         </tr>
                     @endif
@@ -70,6 +75,7 @@
                     </tbody>
                 </table>
                 <div class="flex justify-center py-4">
+                    <input type="hidden" name="list_name" id="list_name" value="{{ $list_name }}">
                     <button type="submit" id="btn1" class="flex items-center px-4 py-2 font-medium tracking-wide text-white capitalize duration-300 transform bg-zinc-400 rounded-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
