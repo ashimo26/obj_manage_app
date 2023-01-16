@@ -13,23 +13,22 @@
        @auth
       {{-- ユーザー新規登録・ログイン済みならマイページ、ログアウト表示 --}}
       <div class="w-3/12 flex">
-        <button class="inline-flex text-white items-center bg-emerald-500 border-0 py-1 px-3 mx-2 focus:outline-none hover:bg-emerald-400 rounded text-base mt-4 md:mt-0">
-          {{-- Auth::user()で必要なカラムを取得 --}}
-          <a href="{{ route('user.index') }}">ホーム</a>
-        </button>
-        <form method="POST" action="{{ route('logout') }}">
-          @csrf
-          <button class="inline-flex text-white items-center bg-red-500 border-0 py-1 px-3 mx-2 focus:outline-none hover:bg-red-400 rounded text-base mt-4 md:mt-0">
-            ログアウト
+          <button class="inline-flex text-white items-center bg-emerald-500 border-0 py-1 px-3 mx-2 focus:outline-none hover:bg-emerald-400 rounded text-base mt-4 md:mt-0">
+            {{-- Auth::user()で必要なカラムを取得 --}}
+            <a href="{{ route('user.index') }}">ホーム</a>
           </button>
-        </form>
-      </div>
+          <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button class="inline-flex text-white items-center bg-red-500 border-0 py-1 px-3 mx-2 focus:outline-none hover:bg-red-400 rounded text-base mt-4 md:mt-0">
+              ログアウト
+            </button>
+          </form>
       @else
       <div>
         <button class="inline-flex text-white items-center bg-emerald-500 border-0 py-1 px-3 mx-2 focus:outline-none hover:bg-emerald-400 rounded text-base mt-4 md:mt-0">
             <a href="{{ route('register') }}">新規登録</a>
         </button>
-        <button class="inline-flex text-white items-center bg-emerald-500 border-0 py-1 px-3 mx-2 focus:outline-none hover:bg-emerald-400 rounded text-base mt-4 md:mt-0">
+        <button class="self-stretch inline-flex text-white items-center bg-emerald-500 border-0 py-1 px-3 mx-2 focus:outline-none hover:bg-emerald-400 rounded text-base mt-4 md:mt-0">
             <a href="{{ route('login') }}">ログイン</a>
         </button>
       </div>
