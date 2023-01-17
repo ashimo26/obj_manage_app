@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //下記を追記
-            $table->date('age')->change();
+            $table->dropColumn('age');
+            $table->date('age');
         });
     }
 
