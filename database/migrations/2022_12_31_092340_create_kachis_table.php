@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('kachis', function (Blueprint $table) {
             $table->id();
-            $table->foreignid('registrant_id');
+            $table->foreignid('user_id');
             $table->string('kachi');
         });
     }

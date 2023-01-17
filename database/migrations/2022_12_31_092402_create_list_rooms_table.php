@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('list_rooms', function (Blueprint $table) {
             $table->id();
-            $table->foreignid('registrant_id');
+            $table->foreignid('user_id');
             $table->string('list_name', 30);
         });
     }
