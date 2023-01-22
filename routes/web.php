@@ -7,6 +7,7 @@ use App\Http\Controllers\User\PostController;
 use App\Http\Controllers\User\MypageFormController;
 use App\Http\Controllers\Discard\DiscardController;
 use App\Http\Controllers\Discard\DiscardObjController;
+use App\Http\Controllers\Buy\BuyController;
 
 
 /*
@@ -58,6 +59,18 @@ Route::prefix('discard')
         Route::post('/{id}/update', 'update')->name('update');
         Route::post('/{id}/destroy', 'destroy')->name('destroy');
         Route::post('/discard', 'discard')->name('discard');
+});
+
+Route::prefix('buy_list')
+    ->name('buy_list.')
+    ->controller(BuyController::class)
+    ->group(function(){
+        Route::get('/index', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/create', 'store')->name('store');
+        Route::get('/{id}/show', 'show')->name('show');
+        Route::post('/{id}/destroy', 'destroy')->name('destroy');
+        Route::get('/buy', 'buy')->name('buy');
 });
 
 
