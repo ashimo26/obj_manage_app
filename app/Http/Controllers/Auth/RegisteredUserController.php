@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use App\Models\ListRoom;
+use App\Models\List_Buy;
 
 class RegisteredUserController extends Controller
 {
@@ -57,6 +58,9 @@ class RegisteredUserController extends Controller
 
         $listroom = New ListRoom;
         $listroom->firstInsertList(Auth::id());
+
+        $listbuy = New List_Buy;
+        $listbuy->firstInsertList(Auth::id());
 
         return redirect()->route('user.index');
     }

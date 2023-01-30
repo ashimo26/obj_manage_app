@@ -58,4 +58,16 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough(Huyoubutu::class,ListRoom::class);
     }
+
+    public function wantbuys()
+    {
+        return $this->hasManyThrough(
+            Wantbuy::class,
+            List_Buy::class,
+            'user_id',
+            'list_buy_id',
+            'id',
+            'id'
+        );
+    }
 }

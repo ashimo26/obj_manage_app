@@ -13,7 +13,7 @@ class Wantbuy extends Model
     {
         return $this->belongsTo(List_Buy::class, 'list_buy_id');
     }
-
+    
     public function kachi()
     {
         return $this->belongsTo(Kachi::class);
