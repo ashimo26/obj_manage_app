@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\List_Buy;
 use App\Models\User;
+use App\Models\Wantbuy;
 use App\Http\Requests\WantBuyListRequest;
 
 class BuyController extends Controller
@@ -75,7 +76,23 @@ class BuyController extends Controller
      */
     public function show($id)
     {
-        //
+        // 認証している場合
+        if(Auth::check()){
+            $list = $this->listbuy->find($id);
+            $list_user_id = $list->user_id;
+            $user_id = Auth::user()->id;
+            // 認証している人が保有するlist_user_idならばshow.bladeを表示
+            if($list_user_id == $user_id){
+                # wantbuyからデータを取得
+                $wantbuys = Wantbuy::with('kachi')->where('list_buy_id', '=', $id)->get();
+                # list名の取得
+                $list_name = $list->list_name;
+                return view('user.wantbuy.show', compact('wantbuys', 'list_name'));
+            }
+            return redirect()->route('discard_list.index');
+            }
+        // 認証していない場合、topへ
+        return redirect()->route('top');
     }
 
     /**

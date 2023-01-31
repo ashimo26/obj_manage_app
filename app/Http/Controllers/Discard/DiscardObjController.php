@@ -134,8 +134,10 @@ class DiscardObjController extends Controller
     public function discard(Request $request)
     {
         $listname = $this->listroom->getListRoomObj($request->list_name);
-        foreach($request->discard as $huyoubutu_id){
-            $this->huyoubutu->discardHuyoubutu($huyoubutu_id);
+        if($listname){
+            foreach($request->discard as $huyoubutu_id){
+                $this->huyoubutu->discardHuyoubutu($huyoubutu_id);
+            }
         }
         return redirect()->route('discard_list.show', ['id'=> $listname->id]);
     }

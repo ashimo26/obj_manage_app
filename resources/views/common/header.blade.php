@@ -12,7 +12,7 @@
       {{-- 認証によって、ボタン表示の切り替え --}}
        @auth
       {{-- ユーザー新規登録・ログイン済みならマイページ、ログアウト表示 --}}
-      <div class="w-3/12 flex">
+      <div class="flex">
           <button class="inline-flex text-white items-center bg-emerald-500 border-0 py-1 px-3 mx-2 focus:outline-none hover:bg-emerald-400 rounded text-base mt-4 md:mt-0">
             {{-- Auth::user()で必要なカラムを取得 --}}
             <a href="{{ route('user.index') }}">ホーム</a>
@@ -23,6 +23,7 @@
               ログアウト
             </button>
           </form>
+      </div>
       @else
       <div>
         <button class="inline-flex text-white items-center bg-emerald-500 border-0 py-1 px-3 mx-2 focus:outline-none hover:bg-emerald-400 rounded text-base mt-4 md:mt-0">
